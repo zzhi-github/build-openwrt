@@ -81,7 +81,7 @@ jobs:
           cat feeds.conf.default
           ./scripts/feeds update -a
           ./scripts/feeds install -a
-          wget https://downloads.openwrt.org/releases/24.10.4/targets/rockchip/armv8/openwrt-sdk-24.10.4-rockchip-armv8_gcc-13.3.0_musl.Linux-x86_64.tar.zst -O sdk.tar.xz
+          wget https://downloads.openwrt.org/releases/24.10.4/targets/rockchip/armv8/config.buildinfo -O .config
           cat ../configs/kernel/*.config >> .config
           make defconfig
           cat .config
