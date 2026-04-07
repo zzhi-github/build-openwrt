@@ -83,9 +83,16 @@ jobs:
           ./scripts/feeds install -a
           wget https://downloads.openwrt.org/releases/24.10.4/targets/rockchip/armv8/config.buildinfo -O .config
           cat ../configs/kernel/*.config >> .config
+          sed -i '/dahdi/d' .config
           make defconfig
           cat .config
-          make -j1 download world V=s
+          # 1. 确保工具链和内核头文件是最新状态
+          make toolchain/install
+          make target/linux/compile
+          
+          # 2. 编译你的 dae 包
+          make package/feeds/custom/dae/compile V=s        
+          #make -j1 download world V=s
           #make -j $(nproc) download world
           tree ./bin
           tar czvf repo.tgz -C bin .
