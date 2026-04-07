@@ -73,8 +73,10 @@ jobs:
 
       - name: Build
         run: |
-          git clone https://github.com/openwrt/openwrt.git --depth=1
+          git clone --depth 1 https://github.com/openwrt/openwrt.git
           cd openwrt
+          git fetch --depth 1 origin tag v24.10.4
+          git checkout v24.10.4
           cat ../configs/feeds.conf >> feeds.conf.default
           cat feeds.conf.default
           ./scripts/feeds update -a
